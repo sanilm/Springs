@@ -1,27 +1,37 @@
 package com.san.hellocontroller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 
-
-public class HelloController extends AbstractController{
-
-	
-
-	
-
-	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest arg0,
-			HttpServletResponse arg1) throws Exception {
-		// TODO Auto-generated method stub
-		ModelAndView modelandview = new ModelAndView("HelloPage");
-modelandview.addObject("welcomeMessage", "Hi User, welcome to the first Spring MVC Application");
+@Controller
+public class HelloController {
+	@RequestMapping("/welcome/{countryname}/{username}")
+	public ModelAndView helloworld(@PathVariable Map<String, String> pathvar){
 		
-		return modelandview;
+		String name=pathvar.get("username");
+		String country=pathvar.get("countryname");
+		
+		
+		ModelAndView model = new ModelAndView("HelloPage");
+		model.addObject( "msg", "hello world"+name+ "you r from"+country);
+				
+		
+		
+		return model;
+		
 	}
+
+	
+
+	
 	
 }
